@@ -1,6 +1,5 @@
 // Wait for the DOM to finish loading before running the game
 // Get the button elements and add event listeners to them
-
 document.addEventListener("DOMContentLoaded", function() {
     let buttons = document.getElementsByTagName("button");
 
@@ -15,6 +14,16 @@ document.addEventListener("DOMContentLoaded", function() {
         })
     }
 
+    /**
+     * Press Enter too to submit the answer rather than just clicking
+     * on the submit button
+     */
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkAnswer();
+        }
+    })
+
     runGame("addition");
 
 })
@@ -24,8 +33,14 @@ document.addEventListener("DOMContentLoaded", function() {
  * and after the user's answer has been processed
  */
 function runGame(gameType) {
+
+// Clear the answer box before typing a new one
+    document.getElementById("answer-box").value = "";
+
+// The cursor appears in the answer box
+    document.getElementById("answer-box").focus();
     
-    // Creates two random numbers between 1 and 25
+// Creates two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
@@ -87,9 +102,7 @@ function calculateCorrectAnswer() {
 
 }
 
-/**
- * Get the current score from the DOM and increments it by 1
- */
+// Get the current score from the DOM and increments it by 1
 function incrementScore() {
 
     let oldScore = parseInt(document.getElementById("score").innerText);
@@ -97,9 +110,7 @@ function incrementScore() {
 
 }
 
-/**
- * Gets the current tally of incorrect answers from the DOM and increments it by 1
- */
+// Gets the current tally of incorrect answers from the DOM and increments it by 1
 function incrementWrongAnswer() {
 
     let oldScore = parseInt(document.getElementById("incorrect").innerText);
